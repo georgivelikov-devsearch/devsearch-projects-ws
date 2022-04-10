@@ -1,8 +1,12 @@
 package devsearch.projects.ws.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import devsearch.common.exception.DevsearchApiException;
@@ -18,7 +22,7 @@ import devsearch.projects.ws.shared.mapper.ModelMapper;
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -27,16 +31,16 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto getProjectByProjectId(String projectId) {
 	ProjectEntity projectEntity = projectRepository.findByProjectId(projectId);
 
-	return modelMapper.map(projectEntity, ProjectDto.class);
+	return mapper.map(projectEntity, ProjectDto.class);
     }
 
     @Override
     public ProjectDto createProject(ProjectDto projectDto) throws DevsearchApiException {
-	ProjectEntity projectEntity = modelMapper.map(projectDto, ProjectEntity.class);
+	ProjectEntity projectEntity = mapper.map(projectDto, ProjectEntity.class);
 	projectEntity.setProjectId(Utils.generatePublicId());
 	ProjectEntity newProjectEntity = projectRepository.save(projectEntity);
 
-	return modelMapper.map(newProjectEntity, ProjectDto.class);
+	return mapper.map(newProjectEntity, ProjectDto.class);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	ProjectEntity updatedProjectEntity = projectRepository.save(projectEntity);
 
-	return modelMapper.map(updatedProjectEntity, ProjectDto.class);
+	return mapper.map(updatedProjectEntity, ProjectDto.class);
     }
 
     @Override
@@ -70,14 +74,41 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDto> getProjectsForDeveloper(String developerId) {
-	// TODO Auto-generated method stub
-	return null;
+	List<ProjectDto> returnValue = new ArrayList<ProjectDto>();
+	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByDeveloperId(developerId);
+	for (ProjectEntity projectEntity : projectsForDeveloper) {
+	    ProjectDto projectDto = mapper.map(projectEntity, ProjectDto.class);
+	    returnValue.add(projectDto);
+	}
+
+	return returnValue;
     }
 
     @Override
     public ProjectListDto getAllProjects(int page, int limit, String searchText) throws DevsearchApiException {
-	// TODO Auto-generated method stub
-	return null;
+	ProjectListDto returnValue = new ProjectListDto();
+	Pageable pageableRequest = PageRequest.of(page, limit);
+	Page<ProjectEntity> projectListPage = null;
+
+	if (searchText != null && !searchText.equals("")) {
+	    projectListPage = projectRepository.findAllByText(pageableRequest, searchText);
+	} else {
+	    projectListPage = projectRepository.findAll(pageableRequest);
+	}
+
+	List<ProjectEntity> projects = projectListPage.getContent();
+	int totalPages = projectListPage.getTotalPages();
+
+	List<ProjectDto> projectDtoList = new ArrayList<>();
+	for (ProjectEntity projectEntity : projects) {
+	    ProjectDto projectDto = mapper.map(projectEntity, ProjectDto.class);
+	    projectDtoList.add(projectDto);
+	}
+
+	returnValue.setTotalPages(totalPages);
+	returnValue.setProjects(projectDtoList);
+
+	return returnValue;
     }
 
 }

@@ -19,7 +19,7 @@ public class ProjectListDto {
 	return projects;
     }
 
-    public void gsetProjects(Collection<ProjectDto> projects) {
+    public void setProjects(Collection<ProjectDto> projects) {
 	this.projects = projects;
     }
 }
