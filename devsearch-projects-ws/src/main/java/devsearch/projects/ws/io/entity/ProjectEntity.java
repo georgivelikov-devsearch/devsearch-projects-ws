@@ -24,19 +24,19 @@ public class ProjectEntity implements Serializable {
     private String projectId;
 
     @Column(nullable = false)
-    private String name;
+    private String projectName;
 
     @Column(nullable = false)
-    private String author;
+    private String authorUsername;
+
+    @Column(nullable = true)
+    private String authorFullname;
 
     @Column(nullable = false)
     private String about;
 
     @Column(nullable = true)
     private String sourceCode;
-
-    @Column(nullable = false)
-    private String developerId;
 
     @Column(nullable = true)
     private Integer possitiveFeedback;
@@ -69,20 +69,28 @@ public class ProjectEntity implements Serializable {
 	this.projectId = projectId;
     }
 
-    public String getName() {
-	return name;
+    public String getProjectName() {
+	return projectName;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setProjectName(String projectName) {
+	this.projectName = projectName;
     }
 
-    public String getAuthor() {
-	return author;
+    public String getAuthorUsername() {
+	return authorUsername;
     }
 
-    public void setAuthor(String author) {
-	this.author = author;
+    public void setAuthorUsername(String authorUsername) {
+	this.authorUsername = authorUsername;
+    }
+
+    public String getAuthorFullname() {
+	return authorFullname;
+    }
+
+    public void setAuthorFullname(String authorFullname) {
+	this.authorFullname = authorFullname;
     }
 
     public String getAbout() {
@@ -99,14 +107,6 @@ public class ProjectEntity implements Serializable {
 
     public void setSourceCode(String sourceCode) {
 	this.sourceCode = sourceCode;
-    }
-
-    public String getDeveloperId() {
-	return developerId;
-    }
-
-    public void setDeveloperId(String developerId) {
-	this.developerId = developerId;
     }
 
     public Integer getPossitiveFeedback() {

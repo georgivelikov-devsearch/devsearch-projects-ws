@@ -6,9 +6,11 @@ public class ProjectRequest {
 
     private String projectId;
 
-    private String name;
+    private String projectName;
 
-    private String author;
+    private String authorUsername;
+
+    private String authorFullname;
 
     private String about;
 
@@ -34,20 +36,28 @@ public class ProjectRequest {
 	this.projectId = projectId;
     }
 
-    public String getName() {
-	return name;
+    public String getProjectName() {
+	return projectName;
     }
 
-    public void setName(String name) {
-	this.name = name;
+    public void setProjectName(String projectName) {
+	this.projectName = projectName;
     }
 
-    public String getAuthor() {
-	return author;
+    public String getAuthorUsername() {
+	return authorUsername;
     }
 
-    public void setAuthor(String author) {
-	this.author = author;
+    public void setAuthorUsername(String authorUsername) {
+	this.authorUsername = authorUsername;
+    }
+
+    public String getAuthorFullname() {
+	return authorFullname;
+    }
+
+    public void setAuthorFullname(String authorFullname) {
+	this.authorFullname = authorFullname;
     }
 
     public String getAbout() {
@@ -113,4 +123,5 @@ public class ProjectRequest {
     public void setProjectPictureUrl(String projectPictureUrl) {
 	this.projectPictureUrl = projectPictureUrl;
     }
+
 }
