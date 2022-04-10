@@ -47,14 +47,14 @@ public class ProjectController {
 	return "ProjectController is working!";
     }
 
-    @GetMapping(path = "/project/{projectId}")
+    @GetMapping(path = "/{projectId}")
     public ProjectResponse getProject(@PathVariable String projectId) throws DevsearchApiException {
 	ProjectDto projectDto = projectService.getProjectByProjectId(projectId);
 
 	return mapper.map(projectDto, ProjectResponse.class);
     }
 
-    @PostMapping("/project")
+    @PostMapping()
     public ProjectResponse createProject(@RequestBody ProjectRequest projectRequest, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
 	// TODO !!! IMPORTANT !!!
@@ -67,7 +67,7 @@ public class ProjectController {
 	return mapper.map(createdProjectDto, ProjectResponse.class);
     }
 
-    @PutMapping("/project")
+    @PutMapping()
     public ProjectResponse updateProject(@RequestBody ProjectRequest projectRequest, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
 	checkAuthorOrigin(projectRequest, jwt, "updateProject");
@@ -79,7 +79,7 @@ public class ProjectController {
 	return mapper.map(updatedProjectDto, ProjectResponse.class);
     }
 
-    @DeleteMapping("/project/{projectId}")
+    @DeleteMapping("/{projectId}")
     public ResponseEntity<String> deleteProject(@PathVariable String projectId,
 	    @RequestParam(value = "username", defaultValue = "") String username, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
