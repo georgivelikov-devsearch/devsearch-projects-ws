@@ -24,6 +24,8 @@ public class ProjectRequest {
 
     private List<CommentRequest> comments;
 
+    private String projectPictureUrl;
+
     public String getProjectId() {
 	return projectId;
     }
@@ -102,5 +104,13 @@ public class ProjectRequest {
 
     public void setComments(List<CommentRequest> comments) {
 	this.comments = comments;
+    }
+
+    public String getProjectPictureUrl() {
+	return projectPictureUrl;
+    }
+
+    public void setProjectPictureUrl(String projectPictureUrl) {
+	this.projectPictureUrl = projectPictureUrl;
     }
 }

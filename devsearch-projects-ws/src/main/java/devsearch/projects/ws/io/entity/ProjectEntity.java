@@ -50,6 +50,9 @@ public class ProjectEntity implements Serializable {
     @OneToMany(mappedBy = "project")
     private List<CommentEntity> comments;
 
+    @Column(nullable = true, length = 200)
+    private String projectPictureUrl;
+
     public long getId() {
 	return id;
     }
@@ -136,5 +139,13 @@ public class ProjectEntity implements Serializable {
 
     public void setComments(List<CommentEntity> comments) {
 	this.comments = comments;
+    }
+
+    public String getProjectPictureUrl() {
+	return projectPictureUrl;
+    }
+
+    public void setProjectPictureUrl(String projectPictureUrl) {
+	this.projectPictureUrl = projectPictureUrl;
     }
 }

@@ -24,6 +24,8 @@ public class ProjectDto {
 
     private List<CommentDto> comments;
 
+    private String projectPictureUrl;
+
     public String getProjectId() {
 	return projectId;
     }
@@ -102,5 +104,13 @@ public class ProjectDto {
 
     public void setComments(List<CommentDto> comments) {
 	this.comments = comments;
+    }
+
+    public String getProjectPictureUrl() {
+	return projectPictureUrl;
+    }
+
+    public void setProjectPictureUrl(String projectPictureUrl) {
+	this.projectPictureUrl = projectPictureUrl;
     }
 }
