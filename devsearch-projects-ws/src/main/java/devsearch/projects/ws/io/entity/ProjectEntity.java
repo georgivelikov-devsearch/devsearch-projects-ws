@@ -33,6 +33,9 @@ public class ProjectEntity implements Serializable {
     private String authorFullname;
 
     @Column(nullable = false)
+    private String developerId;
+
+    @Column(nullable = false)
     private String about;
 
     @Column(nullable = true)
@@ -91,6 +94,14 @@ public class ProjectEntity implements Serializable {
 
     public void setAuthorFullname(String authorFullname) {
 	this.authorFullname = authorFullname;
+    }
+
+    public String getDeveloperId() {
+	return developerId;
+    }
+
+    public void setDeveloperId(String developerId) {
+	this.developerId = developerId;
     }
 
     public String getAbout() {

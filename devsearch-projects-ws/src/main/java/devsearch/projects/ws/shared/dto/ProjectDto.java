@@ -12,11 +12,11 @@ public class ProjectDto {
 
     private String authorFullname;
 
+    private String developerId;
+
     private String about;
 
     private String sourceCode;
-
-    private String developerId;
 
     private Integer possitiveFeedback;
 
@@ -60,6 +60,14 @@ public class ProjectDto {
 	this.authorFullname = authorFullname;
     }
 
+    public String getDeveloperId() {
+	return developerId;
+    }
+
+    public void setDeveloperId(String developerId) {
+	this.developerId = developerId;
+    }
+
     public String getAbout() {
 	return about;
     }
@@ -74,14 +82,6 @@ public class ProjectDto {
 
     public void setSourceCode(String sourceCode) {
 	this.sourceCode = sourceCode;
-    }
-
-    public String getDeveloperId() {
-	return developerId;
-    }
-
-    public void setDeveloperId(String developerId) {
-	this.developerId = developerId;
     }
 
     public Integer getPossitiveFeedback() {

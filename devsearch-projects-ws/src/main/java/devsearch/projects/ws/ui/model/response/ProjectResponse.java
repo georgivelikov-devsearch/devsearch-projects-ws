@@ -16,7 +16,8 @@ public class ProjectResponse {
 
     private String sourceCode;
 
-    private String developerId;
+    // developerId should not be exposed in ProjectResponse
+    // private String developerId;
 
     private Integer possitiveFeedback;
 
@@ -74,14 +75,6 @@ public class ProjectResponse {
 
     public void setSourceCode(String sourceCode) {
 	this.sourceCode = sourceCode;
-    }
-
-    public String getDeveloperId() {
-	return developerId;
-    }
-
-    public void setDeveloperId(String developerId) {
-	this.developerId = developerId;
     }
 
     public Integer getPossitiveFeedback() {
