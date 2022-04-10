@@ -5,8 +5,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,16 +47,18 @@ public class ProjectController {
 	return "ProjectController is working!";
     }
 
-    @GetMapping(path = "/{projectId}")
+    @GetMapping(path = "/project/{projectId}")
     public ProjectResponse getProject(@PathVariable String projectId) throws DevsearchApiException {
 	ProjectDto projectDto = projectService.getProjectByProjectId(projectId);
 
 	return mapper.map(projectDto, ProjectResponse.class);
     }
 
-    @PostMapping()
+    @PostMapping("/project")
     public ProjectResponse createProject(@RequestBody ProjectRequest projectRequest, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
+	// TODO !!! IMPORTANT !!!
+	// 1. SET DEVELOPER-ID AS CLAIM IN JWT-BUT IT COULD BE SEEN FROM FRONTEND?
 	checkAuthorOrigin(projectRequest, jwt, "createProject");
 
 	ProjectDto projectDto = mapper.map(projectRequest, ProjectDto.class);
@@ -62,7 +67,7 @@ public class ProjectController {
 	return mapper.map(createdProjectDto, ProjectResponse.class);
     }
 
-    @PutMapping()
+    @PutMapping("/project")
     public ProjectResponse updateProject(@RequestBody ProjectRequest projectRequest, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
 	checkAuthorOrigin(projectRequest, jwt, "updateProject");
@@ -74,7 +79,16 @@ public class ProjectController {
 	return mapper.map(updatedProjectDto, ProjectResponse.class);
     }
 
-    @GetMapping("/public/all")
+    @DeleteMapping("/project/{projectId}")
+    public ResponseEntity<String> deleteProject(@PathVariable String projectId,
+	    @RequestParam(value = "username", defaultValue = "") String username, @AuthenticationPrincipal Jwt jwt)
+	    throws DevsearchApiException {
+	checkAuthorOrigin(username, jwt, "deleteProject");
+	projectService.deleteProject(projectId);
+	return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
     public ProjectListResponse getProjects(@RequestParam(value = "page", defaultValue = "1") int page,
 	    @RequestParam(value = "limit", defaultValue = "6") int limit,
 	    @RequestParam(value = "searchText", defaultValue = "") String searchText) throws DevsearchApiException {
