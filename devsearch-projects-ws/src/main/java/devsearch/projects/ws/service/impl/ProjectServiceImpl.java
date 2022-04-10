@@ -55,8 +55,17 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void deleteProject(String projectId) throws DevsearchApiException {
-	// TODO Auto-generated method stub
+	// Check if underlying user is deleted?
+	ProjectEntity projectEntity = projectRepository.findByProjectId(projectId);
+	if (projectEntity == null) {
+	    throw new DevsearchApiException("No record found with this Id");
+	}
 
+	try {
+	    projectRepository.delete(projectEntity);
+	} catch (Exception ex) {
+	    throw new DevsearchApiException("Failed to delete record", ex.getMessage());
+	}
     }
 
     @Override
