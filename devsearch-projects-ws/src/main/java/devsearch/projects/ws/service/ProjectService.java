@@ -16,7 +16,7 @@ public interface ProjectService {
 
     public void deleteProject(String projectId) throws DevsearchApiException;
 
-    public List<ProjectDto> getProjectsForDeveloper(String developerId);
+    public List<ProjectDto> getProjectsForDeveloper(String username);
 
     public ProjectListDto getAllProjects(int page, int limit, String searchText) throws DevsearchApiException;
 

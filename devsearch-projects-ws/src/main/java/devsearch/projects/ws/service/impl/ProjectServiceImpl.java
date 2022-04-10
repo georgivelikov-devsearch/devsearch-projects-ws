@@ -47,9 +47,10 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto updateProject(ProjectDto projectDto) throws DevsearchApiException {
 	ProjectEntity projectEntity = projectRepository.findByProjectId(projectDto.getProjectId());
 
-	projectEntity.setName(projectDto.getName());
+	projectEntity.setProjectName(projectDto.getProjectName());
 	projectEntity.setAbout(projectDto.getAbout());
-	projectEntity.setAuthor(projectDto.getAuthor());
+	projectEntity.setAuthorUsername(projectDto.getAuthorUsername());
+	projectEntity.setAuthorFullname(projectDto.getAuthorFullname());
 	projectEntity.setSourceCode(projectDto.getSourceCode());
 
 	ProjectEntity updatedProjectEntity = projectRepository.save(projectEntity);
@@ -73,9 +74,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> getProjectsForDeveloper(String developerId) {
+    public List<ProjectDto> getProjectsForDeveloper(String username) {
 	List<ProjectDto> returnValue = new ArrayList<ProjectDto>();
-	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByDeveloperId(developerId);
+	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByAuthorUsername(username);
 	for (ProjectEntity projectEntity : projectsForDeveloper) {
 	    ProjectDto projectDto = mapper.map(projectEntity, ProjectDto.class);
 	    returnValue.add(projectDto);
