@@ -28,6 +28,8 @@ public class ProjectDto {
 
     private String projectPictureUrl;
 
+    private String publicKey;
+
     public String getProjectId() {
 	return projectId;
     }
@@ -122,6 +124,14 @@ public class ProjectDto {
 
     public void setProjectPictureUrl(String projectPictureUrl) {
 	this.projectPictureUrl = projectPictureUrl;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 
 }

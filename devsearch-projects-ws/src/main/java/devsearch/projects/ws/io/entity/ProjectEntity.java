@@ -56,6 +56,9 @@ public class ProjectEntity implements Serializable {
     @Column(nullable = true, length = 200)
     private String projectPictureUrl;
 
+    @Column(nullable = false, unique = true)
+    private String publicKey;
+
     public long getId() {
 	return id;
     }
@@ -158,5 +161,13 @@ public class ProjectEntity implements Serializable {
 
     public void setProjectPictureUrl(String projectPictureUrl) {
 	this.projectPictureUrl = projectPictureUrl;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 }

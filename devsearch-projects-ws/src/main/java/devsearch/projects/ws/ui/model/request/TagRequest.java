@@ -6,6 +6,8 @@ public class TagRequest {
 
     private String name;
 
+    private String publicKey;
+
     public String getTagId() {
 	return tagId;
     }
@@ -20,5 +22,13 @@ public class TagRequest {
 
     public void setName(String name) {
 	this.name = name;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 }

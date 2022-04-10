@@ -8,6 +8,8 @@ public class CommentResponse {
 
     private String content;
 
+    private String publicKey;
+
     public String getCommentId() {
 	return commentId;
     }
@@ -30,6 +32,14 @@ public class CommentResponse {
 
     public void setContent(String content) {
 	this.content = content;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 
 }

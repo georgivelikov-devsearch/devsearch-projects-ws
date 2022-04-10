@@ -26,6 +26,9 @@ public class TagEntity implements Serializable {
     @JoinColumn(name = "project_id", nullable = false)
     private ProjectEntity project;
 
+    @Column(nullable = false, unique = true)
+    private String publicKey;
+
     public long getId() {
 	return id;
     }
@@ -56,5 +59,13 @@ public class TagEntity implements Serializable {
 
     public void setProject(ProjectEntity project) {
 	this.project = project;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 }
