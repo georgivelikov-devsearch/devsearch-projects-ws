@@ -18,7 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 	// jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new
 	// KeycloakRoleConverter()); // delegate to custom
-	// converter
+	// converter - not needed for now
 
 	http.csrf()
 		.disable() // Disable CSRF is needed for POST requests!!!
