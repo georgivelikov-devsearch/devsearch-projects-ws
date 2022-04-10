@@ -37,7 +37,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto createProject(ProjectDto projectDto) throws DevsearchApiException {
 	ProjectEntity projectEntity = mapper.map(projectDto, ProjectEntity.class);
-	projectEntity.setProjectId(Utils.generatePublicId());
+	projectEntity.setProjectId(Utils.generateId());
+	projectEntity.setPublicKey(Utils.generatePublicKey());
 	ProjectEntity newProjectEntity = projectRepository.save(projectEntity);
 
 	return mapper.map(newProjectEntity, ProjectDto.class);
