@@ -1,12 +1,16 @@
 package devsearch.projects.ws.io.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-public class TagEntity {
+public class TagEntity implements Serializable {
+
+    private static final long serialVersionUID = 9177533359693655330L;
 
     @Id
     @GeneratedValue
@@ -21,4 +25,36 @@ public class TagEntity {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private ProjectEntity project;
+
+    public long getId() {
+	return id;
+    }
+
+    public void setId(long id) {
+	this.id = id;
+    }
+
+    public String getTagId() {
+	return tagId;
+    }
+
+    public void setTagId(String tagId) {
+	this.tagId = tagId;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public ProjectEntity getProject() {
+	return project;
+    }
+
+    public void setProject(ProjectEntity project) {
+	this.project = project;
+    }
 }
