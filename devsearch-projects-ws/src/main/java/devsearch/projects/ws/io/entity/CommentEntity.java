@@ -6,17 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-public class TagEntity {
-
+public class CommentEntity {
     @Id
     @GeneratedValue
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String tagId;
+    private String commentId;
 
     @Column(nullable = false)
-    private String name;
+    private String author;
+
+    @Column(nullable = false)
+    private String content;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
