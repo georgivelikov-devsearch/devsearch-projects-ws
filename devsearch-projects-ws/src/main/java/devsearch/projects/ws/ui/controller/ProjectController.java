@@ -116,11 +116,12 @@ public class ProjectController {
     }
 
     @GetMapping("/all/{developerId}")
-    public List<ProjectResponse> getProjectsForDeveloper(@PathVariable String username,
+    public List<ProjectResponse> getProjectsForDeveloper(@PathVariable String developerId,
 	    @AuthenticationPrincipal Jwt jwt) throws DevsearchApiException {
-	checkAuthorOrigin(username, jwt, "getProjectsForDeveloper");
+	// TODO Fix security for this
+	// checkAuthorOrigin(username, jwt, "getProjectsForDeveloper");
 
-	List<ProjectDto> projectListDto = projectService.getProjectsForDeveloper(username);
+	List<ProjectDto> projectListDto = projectService.getProjectsForDeveloper(developerId);
 	List<ProjectResponse> projectListResponse = new ArrayList<ProjectResponse>();
 	for (ProjectDto projectDto : projectListDto) {
 	    ProjectResponse projectResponse = mapper.map(projectDto, ProjectResponse.class);
