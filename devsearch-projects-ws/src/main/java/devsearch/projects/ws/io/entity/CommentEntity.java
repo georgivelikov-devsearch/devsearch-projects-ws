@@ -3,11 +3,15 @@ package devsearch.projects.ws.io.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "comments")
 public class CommentEntity implements Serializable {
 
     private static final long serialVersionUID = -8254950179660347040L;

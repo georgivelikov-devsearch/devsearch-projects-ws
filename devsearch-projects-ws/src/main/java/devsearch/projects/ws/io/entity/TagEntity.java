@@ -3,11 +3,15 @@ package devsearch.projects.ws.io.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "tags")
 public class TagEntity implements Serializable {
 
     private static final long serialVersionUID = 9177533359693655330L;
