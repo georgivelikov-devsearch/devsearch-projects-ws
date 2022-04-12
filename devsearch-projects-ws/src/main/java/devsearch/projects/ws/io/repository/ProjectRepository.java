@@ -22,6 +22,6 @@ public interface ProjectRepository extends PagingAndSortingRepository<ProjectEnt
     Page<ProjectEntity> findAllByText(Pageable pageable, @Param("searchText") String searchText);
 
     @Transactional
-    @Query(value = "SELECT p FROM ProjectEntity p where p.authorUsername = :authorUsername")
-    List<ProjectEntity> findAllByAuthorUsername(@Param("authorUsername") String authorUsername);
+    @Query(value = "SELECT p FROM ProjectEntity p where p.developerId = :developerId")
+    List<ProjectEntity> findAllByDeveloperId(@Param("developerId") String developerId);
 }

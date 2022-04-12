@@ -75,9 +75,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> getProjectsForDeveloper(String username) {
+    public List<ProjectDto> getProjectsForDeveloper(String developerId) {
 	List<ProjectDto> returnValue = new ArrayList<ProjectDto>();
-	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByAuthorUsername(username);
+	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByDeveloperId(developerId);
 	for (ProjectEntity projectEntity : projectsForDeveloper) {
 	    ProjectDto projectDto = mapper.map(projectEntity, ProjectDto.class);
 	    returnValue.add(projectDto);

@@ -84,6 +84,7 @@ public class ProjectController {
 	    @RequestParam(value = "username", defaultValue = "") String username, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
 	checkAuthorOrigin(username, jwt, "deleteProject");
+
 	projectService.deleteProject(projectId);
 	return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
@@ -114,7 +115,7 @@ public class ProjectController {
 	return response;
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/all/{developerId}")
     public List<ProjectResponse> getProjectsForDeveloper(@PathVariable String username,
 	    @AuthenticationPrincipal Jwt jwt) throws DevsearchApiException {
 	checkAuthorOrigin(username, jwt, "getProjectsForDeveloper");
