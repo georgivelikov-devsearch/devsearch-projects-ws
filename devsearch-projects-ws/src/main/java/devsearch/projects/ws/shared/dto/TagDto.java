@@ -8,6 +8,8 @@ public class TagDto {
 
     private String publicKey;
 
+    private int position;
+
     public String getTagId() {
 	return tagId;
     }
@@ -30,5 +32,13 @@ public class TagDto {
 
     public void setPublicKey(String publicKey) {
 	this.publicKey = publicKey;
+    }
+
+    public int getPosition() {
+	return position;
+    }
+
+    public void setPosition(int position) {
+	this.position = position;
     }
 }

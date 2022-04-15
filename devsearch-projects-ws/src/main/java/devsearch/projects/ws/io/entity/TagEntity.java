@@ -33,6 +33,9 @@ public class TagEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private String publicKey;
 
+    @Column(nullable = false)
+    private int position;
+
     public long getId() {
 	return id;
     }
@@ -71,5 +74,13 @@ public class TagEntity implements Serializable {
 
     public void setPublicKey(String publicKey) {
 	this.publicKey = publicKey;
+    }
+
+    public int getPosition() {
+	return position;
+    }
+
+    public void setPosition(int position) {
+	this.position = position;
     }
 }
