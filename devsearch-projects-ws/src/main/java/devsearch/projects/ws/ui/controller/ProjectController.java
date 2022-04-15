@@ -89,7 +89,7 @@ public class ProjectController {
 	return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/public/all")
     public ProjectListResponse getProjects(@RequestParam(value = "page", defaultValue = "1") int page,
 	    @RequestParam(value = "limit", defaultValue = "6") int limit,
 	    @RequestParam(value = "searchText", defaultValue = "") String searchText) throws DevsearchApiException {
@@ -105,6 +105,7 @@ public class ProjectController {
 	Collection<ProjectResponse> projectListResponse = new ArrayList<ProjectResponse>();
 	for (ProjectDto projectDto : projectListDto.getProjects()) {
 	    ProjectResponse projectResponse = mapper.map(projectDto, ProjectResponse.class);
+	    projectResponse.setProjectId(null);
 	    projectListResponse.add(projectResponse);
 	}
 
@@ -113,6 +114,23 @@ public class ProjectController {
 	response.setProjects(projectListResponse);
 
 	return response;
+    }
+
+    @GetMapping("/public/all/{username}")
+    public List<ProjectResponse> getProjectsForDeveloperPublic(@PathVariable String username)
+	    throws DevsearchApiException {
+	// TODO Fix security for this
+	// checkAuthorOrigin(username, jwt, "getProjectsForDeveloper");
+
+	List<ProjectDto> projectListDto = projectService.getProjectsForDeveloperByUsername(username);
+	List<ProjectResponse> projectListResponse = new ArrayList<ProjectResponse>();
+	for (ProjectDto projectDto : projectListDto) {
+	    ProjectResponse projectResponse = mapper.map(projectDto, ProjectResponse.class);
+	    projectResponse.setProjectId(null);
+	    projectListResponse.add(projectResponse);
+	}
+
+	return projectListResponse;
     }
 
     @GetMapping("/all/{developerId}")

@@ -87,6 +87,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectDto> getProjectsForDeveloperByUsername(String username) {
+	List<ProjectDto> returnValue = new ArrayList<ProjectDto>();
+	List<ProjectEntity> projectsForDeveloper = projectRepository.findAllByUsername(username);
+	for (ProjectEntity projectEntity : projectsForDeveloper) {
+	    ProjectDto projectDto = mapper.map(projectEntity, ProjectDto.class);
+	    returnValue.add(projectDto);
+	}
+
+	return returnValue;
+    }
+
+    @Override
     public ProjectListDto getAllProjects(int page, int limit, String searchText) throws DevsearchApiException {
 	ProjectListDto returnValue = new ProjectListDto();
 	Pageable pageableRequest = PageRequest.of(page, limit);
