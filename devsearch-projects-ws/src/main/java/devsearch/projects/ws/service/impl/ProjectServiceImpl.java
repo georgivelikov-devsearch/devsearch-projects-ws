@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 import devsearch.common.exception.DevsearchApiException;
 import devsearch.common.utils.Utils;
 import devsearch.projects.ws.io.entity.ProjectEntity;
+import devsearch.projects.ws.io.entity.TagEntity;
 import devsearch.projects.ws.io.repository.ProjectRepository;
+import devsearch.projects.ws.io.repository.TagRepository;
 import devsearch.projects.ws.service.ProjectService;
 import devsearch.projects.ws.shared.dto.ProjectDto;
 import devsearch.projects.ws.shared.dto.ProjectListDto;
+import devsearch.projects.ws.shared.dto.TagDto;
 import devsearch.projects.ws.shared.mapper.ModelMapper;
 
 @Service
@@ -26,6 +29,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @Override
     public ProjectDto getProjectByProjectId(String projectId) {
@@ -39,7 +45,19 @@ public class ProjectServiceImpl implements ProjectService {
 	ProjectEntity projectEntity = mapper.map(projectDto, ProjectEntity.class);
 	projectEntity.setProjectId(Utils.generateId());
 	projectEntity.setPublicKey(Utils.generatePublicKey());
+	projectEntity.setTags(new ArrayList<>());
 	ProjectEntity newProjectEntity = projectRepository.save(projectEntity);
+
+	for (int i = 0; i < projectDto.getTags().size(); i++) {
+	    TagDto tagDto = projectDto.getTags().get(i);
+	    TagEntity tagEntity = mapper.map(tagDto, TagEntity.class);
+	    tagEntity.setTagId(Utils.generateId());
+	    tagEntity.setPublicKey(Utils.generatePublicKey());
+	    tagEntity.setPosition(i);
+	    tagEntity.setProject(newProjectEntity);
+	    TagEntity newTagEntity = tagRepository.save(tagEntity);
+	    projectEntity.getTags().add(newTagEntity);
+	}
 
 	return mapper.map(newProjectEntity, ProjectDto.class);
     }

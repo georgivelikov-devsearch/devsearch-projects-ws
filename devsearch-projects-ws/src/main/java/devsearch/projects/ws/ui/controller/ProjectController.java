@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import devsearch.common.exception.DevsearchApiException;
 import devsearch.projects.ws.security.jwt.JwtService;
 import devsearch.projects.ws.service.ProjectService;
+import devsearch.projects.ws.service.TagService;
 import devsearch.projects.ws.shared.dto.ProjectDto;
 import devsearch.projects.ws.shared.dto.ProjectListDto;
 import devsearch.projects.ws.shared.mapper.ModelMapper;
@@ -38,6 +39,9 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private TagService tagService;
 
     @Autowired
     private JwtService jwtService;
@@ -62,9 +66,10 @@ public class ProjectController {
 	checkAuthorOrigin(projectRequest, jwt, "createProject");
 
 	ProjectDto projectDto = mapper.map(projectRequest, ProjectDto.class);
-	ProjectDto createdProjectDto = projectService.createProject(projectDto);
 
-	return mapper.map(createdProjectDto, ProjectResponse.class);
+	ProjectDto newProjectDto = projectService.createProject(projectDto);
+
+	return mapper.map(newProjectDto, ProjectResponse.class);
     }
 
     @PutMapping()
