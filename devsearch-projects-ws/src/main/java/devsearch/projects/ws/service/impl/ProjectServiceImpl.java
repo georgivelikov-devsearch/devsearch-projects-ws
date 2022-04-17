@@ -74,6 +74,23 @@ public class ProjectServiceImpl implements ProjectService {
 
 	ProjectEntity updatedProjectEntity = projectRepository.save(projectEntity);
 
+	for (int i = 0; i < projectDto.getTags().size(); i++) {
+	    TagDto tagDto = projectDto.getTags().get(i);
+	    TagEntity tagEntity = null;
+	    if (tagDto.getTagId() == null) {
+		tagEntity = mapper.map(tagDto, TagEntity.class);
+		tagEntity.setTagId(Utils.generateId());
+		tagEntity.setPublicKey(Utils.generatePublicKey());
+		tagEntity.setProject(updatedProjectEntity);
+	    } else {
+		tagEntity = tagRepository.findByTagId(tagDto.getTagId());
+	    }
+
+	    tagEntity.setPosition(i);
+	    TagEntity newTagEntity = tagRepository.save(tagEntity);
+	    projectEntity.getTags().add(newTagEntity);
+	}
+
 	return mapper.map(updatedProjectEntity, ProjectDto.class);
     }
 
