@@ -76,7 +76,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 	for (int i = 0; i < updatedProjectEntity.getTags().size(); i++) {
 	    TagEntity tagEntity = updatedProjectEntity.getTags().get(i);
-	    // Request does not contain the tag, so it has been delete in UI
+	    // Request does not contain the tag, so it has been deleted in UI and must be
+	    // deleted here as well
 	    if (!projectDto.getTags().stream().anyMatch(t -> t.getTagId().equals(tagEntity.getTagId()))) {
 		tagRepository.delete(tagEntity);
 	    }
