@@ -74,6 +74,14 @@ public class ProjectServiceImpl implements ProjectService {
 
 	ProjectEntity updatedProjectEntity = projectRepository.save(projectEntity);
 
+	for (int i = 0; i < updatedProjectEntity.getTags().size(); i++) {
+	    TagEntity tagEntity = updatedProjectEntity.getTags().get(i);
+	    // Request does not contain the tag, so it has been delete in UI
+	    if (!projectDto.getTags().stream().anyMatch(t -> t.getTagId().equals(tagEntity.getTagId()))) {
+		tagRepository.delete(tagEntity);
+	    }
+	}
+
 	for (int i = 0; i < projectDto.getTags().size(); i++) {
 	    TagDto tagDto = projectDto.getTags().get(i);
 	    TagEntity tagEntity = null;
@@ -88,7 +96,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 	    tagEntity.setPosition(i);
 	    TagEntity newTagEntity = tagRepository.save(tagEntity);
-	    projectEntity.getTags().add(newTagEntity);
 	}
 
 	return mapper.map(updatedProjectEntity, ProjectDto.class);
