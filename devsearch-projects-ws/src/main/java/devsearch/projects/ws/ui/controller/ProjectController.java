@@ -68,15 +68,17 @@ public class ProjectController {
 	checkAuthorOrigin(projectRequest, jwt, "createProject");
 
 	ProjectDto projectDto = mapper.map(projectRequest, ProjectDto.class);
-	if (projectRequest.isNewProjectPictureUpload()) {
-	    try {
-		projectDto = setProjectPicture(projectDto);
-	    } catch (Exception e) {
-		// TODO Log that picture is not set
-	    }
-	}
+	String imageDataBackUp = projectDto.getProjectPictureUrl();
+	projectDto.setProjectPictureUrl(null);
 
 	ProjectDto newProjectDto = projectService.createProject(projectDto);
+
+	if (projectRequest.isNewProjectPictureUpload()) {
+	    newProjectDto.setProjectPictureUrl(imageDataBackUp);
+	    newProjectDto = setProjectPicture(newProjectDto);
+	}
+
+	newProjectDto = projectService.updateProject(newProjectDto);
 
 	return mapper.map(newProjectDto, ProjectResponse.class);
     }
@@ -89,11 +91,7 @@ public class ProjectController {
 	ProjectDto projectDto = mapper.map(projectRequest, ProjectDto.class);
 
 	if (projectRequest.isNewProjectPictureUpload()) {
-	    try {
-		projectDto = setProjectPicture(projectDto);
-	    } catch (Exception e) {
-		// TODO Log that picture is not set
-	    }
+	    projectDto = setProjectPicture(projectDto);
 	}
 
 	ProjectDto updatedProjectDto = projectService.updateProject(projectDto);
@@ -183,14 +181,18 @@ public class ProjectController {
 	}
     }
 
-    private ProjectDto setProjectPicture(ProjectDto projectDto) throws Exception {
-	ProjectImageRequest imageRequest = new ProjectImageRequest();
-	imageRequest.setProjectId(projectDto.getProjectId());
-	imageRequest.setProjectPictureUrl(projectDto.getProjectPictureUrl());
+    private ProjectDto setProjectPicture(ProjectDto projectDto) {
+	try {
+	    ProjectImageRequest imageRequest = new ProjectImageRequest();
+	    imageRequest.setProjectId(projectDto.getProjectId());
+	    imageRequest.setProjectPictureUrl(projectDto.getProjectPictureUrl());
 
-	ResponseEntity<ProjectImageResponse> imageResponse = imageClient.addProjectImage(imageRequest);
-	String projectPictureUrl = imageResponse.getBody().getPictureUrl();
-	projectDto.setProjectPictureUrl(projectPictureUrl);
+	    ResponseEntity<ProjectImageResponse> imageResponse = imageClient.addProjectImage(imageRequest);
+	    String projectPictureUrl = imageResponse.getBody().getPictureUrl();
+	    projectDto.setProjectPictureUrl(projectPictureUrl);
+	} catch (Exception ex) {
+	    // Log exception
+	}
 
 	return projectDto;
     }
