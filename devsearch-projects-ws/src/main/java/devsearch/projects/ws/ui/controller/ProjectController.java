@@ -68,13 +68,13 @@ public class ProjectController {
 	checkAuthorOrigin(projectRequest, jwt, "createProject");
 
 	ProjectDto projectDto = mapper.map(projectRequest, ProjectDto.class);
-	String imageDataBackUp = projectDto.getProjectPictureUrl();
+	String projectPictureBackUp = projectDto.getProjectPictureUrl();
 	projectDto.setProjectPictureUrl(null);
 
 	ProjectDto newProjectDto = projectService.createProject(projectDto);
 
 	if (projectRequest.isNewProjectPictureUpload()) {
-	    newProjectDto.setProjectPictureUrl(imageDataBackUp);
+	    newProjectDto.setProjectPictureUrl(projectPictureBackUp);
 	    newProjectDto = setProjectPicture(newProjectDto);
 	}
 
