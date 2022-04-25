@@ -6,6 +6,8 @@ public class ProjectRequest {
 
     private String projectId;
 
+    private String publicKey;
+
     private String projectName;
 
     private String authorUsername;
@@ -28,7 +30,7 @@ public class ProjectRequest {
 
     private String projectPictureUrl;
 
-    private String publicKey;
+    private boolean newProjectPictureUpload;
 
     public String getProjectId() {
 	return projectId;
@@ -36,6 +38,14 @@ public class ProjectRequest {
 
     public void setProjectId(String projectId) {
 	this.projectId = projectId;
+    }
+
+    public String getPublicKey() {
+	return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+	this.publicKey = publicKey;
     }
 
     public String getProjectName() {
@@ -126,12 +136,12 @@ public class ProjectRequest {
 	this.projectPictureUrl = projectPictureUrl;
     }
 
-    public String getPublicKey() {
-	return publicKey;
+    public boolean isNewProjectPictureUpload() {
+	return newProjectPictureUpload;
     }
 
-    public void setPublicKey(String publicKey) {
-	this.publicKey = publicKey;
+    public void setNewProjectPictureUpload(boolean newProjectPictureUpload) {
+	this.newProjectPictureUpload = newProjectPictureUpload;
     }
 
 }
