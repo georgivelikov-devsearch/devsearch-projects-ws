@@ -71,6 +71,7 @@ public class ProjectServiceImpl implements ProjectService {
 	projectEntity.setAuthorUsername(projectDto.getAuthorUsername());
 	projectEntity.setAuthorFullname(projectDto.getAuthorFullname());
 	projectEntity.setSourceCode(projectDto.getSourceCode());
+	projectEntity.setProjectPictureUrl(projectDto.getProjectPictureUrl());
 
 	ProjectEntity updatedProjectEntity = projectRepository.save(projectEntity);
 
