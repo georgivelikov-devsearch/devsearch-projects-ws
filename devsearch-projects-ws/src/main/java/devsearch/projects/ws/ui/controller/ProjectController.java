@@ -100,11 +100,11 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity<String> deleteProject(@PathVariable String projectId,
-	    @RequestParam(value = "username", defaultValue = "") String username, @AuthenticationPrincipal Jwt jwt)
+    public ResponseEntity<String> deleteProject(@PathVariable String projectId, @AuthenticationPrincipal Jwt jwt)
 	    throws DevsearchApiException {
-	checkAuthorOrigin(username, jwt, "deleteProject");
+	// checkAuthorOrigin(username, jwt, "deleteProject");
 
+	// TODO check if project author is same as username in JWT
 	projectService.deleteProject(projectId);
 	return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     }
