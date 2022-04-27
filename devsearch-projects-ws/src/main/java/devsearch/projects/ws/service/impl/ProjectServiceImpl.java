@@ -41,6 +41,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public ProjectDto getProjectByProjectName(String projectName) {
+	ProjectEntity projectEntity = projectRepository.findByProjectName(projectName);
+
+	return mapper.map(projectEntity, ProjectDto.class);
+    }
+
+    @Override
     public ProjectDto createProject(ProjectDto projectDto) throws DevsearchApiException {
 	ProjectEntity projectEntity = mapper.map(projectDto, ProjectEntity.class);
 	projectEntity.setProjectId(Utils.generateId());

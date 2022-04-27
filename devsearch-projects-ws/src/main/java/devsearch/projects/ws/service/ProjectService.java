@@ -10,6 +10,8 @@ public interface ProjectService {
 
     public ProjectDto getProjectByProjectId(String projectId);
 
+    public ProjectDto getProjectByProjectName(String projectName);
+
     public ProjectDto createProject(ProjectDto projectDto) throws DevsearchApiException;
 
     public ProjectDto updateProject(ProjectDto projectDto) throws DevsearchApiException;

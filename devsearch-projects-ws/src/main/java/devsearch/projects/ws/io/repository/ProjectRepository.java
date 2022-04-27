@@ -17,6 +17,8 @@ public interface ProjectRepository extends PagingAndSortingRepository<ProjectEnt
 
     public ProjectEntity findByProjectId(String projectId);
 
+    public ProjectEntity findByProjectName(String projectName);
+
     @Transactional
     @Query(value = "SELECT p FROM ProjectEntity p where p.projectName LIKE %:searchText%")
     Page<ProjectEntity> findAllByText(Pageable pageable, @Param("searchText") String searchText);

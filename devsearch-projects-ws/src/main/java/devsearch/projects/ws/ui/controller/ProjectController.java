@@ -53,9 +53,9 @@ public class ProjectController {
 	return "ProjectController is working!";
     }
 
-    @GetMapping(path = "/{projectId}")
-    public ProjectResponse getProject(@PathVariable String projectId) throws DevsearchApiException {
-	ProjectDto projectDto = projectService.getProjectByProjectId(projectId);
+    @GetMapping(path = "/{projectName}")
+    public ProjectResponse getProject(@PathVariable String projectName) throws DevsearchApiException {
+	ProjectDto projectDto = projectService.getProjectByProjectName(projectName);
 
 	return mapper.map(projectDto, ProjectResponse.class);
     }
