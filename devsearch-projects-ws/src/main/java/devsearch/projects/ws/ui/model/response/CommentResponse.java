@@ -4,11 +4,15 @@ public class CommentResponse {
 
     private String commentId;
 
-    private String author;
+    private String commentText;
 
-    private String content;
+    private String developerId;
 
     private String publicKey;
+
+    private String projectId;
+
+    private boolean positiveFeedback;
 
     public String getCommentId() {
 	return commentId;
@@ -18,20 +22,20 @@ public class CommentResponse {
 	this.commentId = commentId;
     }
 
-    public String getAuthor() {
-	return author;
+    public String getCommentText() {
+	return commentText;
     }
 
-    public void setAuthor(String author) {
-	this.author = author;
+    public void setCommentText(String commentText) {
+	this.commentText = commentText;
     }
 
-    public String getContent() {
-	return content;
+    public String getDeveloperId() {
+	return developerId;
     }
 
-    public void setContent(String content) {
-	this.content = content;
+    public void setDeveloperId(String developerId) {
+	this.developerId = developerId;
     }
 
     public String getPublicKey() {
@@ -42,4 +46,19 @@ public class CommentResponse {
 	this.publicKey = publicKey;
     }
 
+    public String getProjectId() {
+	return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+	this.projectId = projectId;
+    }
+
+    public boolean isPositiveFeedback() {
+	return positiveFeedback;
+    }
+
+    public void setPositiveFeedback(boolean positiveFeedback) {
+	this.positiveFeedback = positiveFeedback;
+    }
 }
