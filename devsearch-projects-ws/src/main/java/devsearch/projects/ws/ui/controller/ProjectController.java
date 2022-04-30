@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import devsearch.common.exception.DevsearchApiException;
+import devsearch.projects.ws.client.DeveloperClient;
 import devsearch.projects.ws.client.ImageClient;
 import devsearch.projects.ws.security.jwt.JwtService;
 import devsearch.projects.ws.service.ProjectService;
@@ -28,6 +29,7 @@ import devsearch.projects.ws.shared.dto.ProjectListDto;
 import devsearch.projects.ws.shared.mapper.ModelMapper;
 import devsearch.projects.ws.ui.model.request.ProjectImageRequest;
 import devsearch.projects.ws.ui.model.request.ProjectRequest;
+import devsearch.projects.ws.ui.model.response.CommentResponse;
 import devsearch.projects.ws.ui.model.response.ProjectImageResponse;
 import devsearch.projects.ws.ui.model.response.ProjectListResponse;
 import devsearch.projects.ws.ui.model.response.ProjectResponse;
@@ -41,6 +43,9 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private DeveloperClient developerClient;
 
     @Autowired
     private ImageClient imageClient;
@@ -57,7 +62,12 @@ public class ProjectController {
     public ProjectResponse getProject(@PathVariable String projectName) throws DevsearchApiException {
 	ProjectDto projectDto = projectService.getProjectByProjectName(projectName);
 
-	return mapper.map(projectDto, ProjectResponse.class);
+	List<CommentResponse> comments = developerClient.getCommentsForProject(projectDto.getProjectId());
+
+	ProjectResponse response = mapper.map(projectDto, ProjectResponse.class);
+	response.setComments(comments);
+
+	return response;
     }
 
     @PostMapping()
