@@ -116,7 +116,7 @@ public class ProjectController {
 
 	// TODO check if project author is same as username in JWT
 	projectService.deleteProject(projectId);
-	return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	return new ResponseEntity<String>(projectId, HttpStatus.OK);
     }
 
     @GetMapping("/public/all")
